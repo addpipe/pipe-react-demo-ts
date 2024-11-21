@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import SingleRecorder from "./components/SingleRecorder";
+import MultipleRecorders from "./components/MultipleRecorders";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState<"SINGLE" | "MULTIPLE">("SINGLE");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <div className="navigation-top">
+        <button
+          disabled={currentPage === "SINGLE"}
+          onClick={() => setCurrentPage("SINGLE")}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Single Recorder
+        </button>
+        <button
+          disabled={currentPage === "MULTIPLE"}
+          onClick={() => setCurrentPage("MULTIPLE")}
+        >
+          Multiple Recorders
+        </button>
+      </div>
+      <hr />
+      {currentPage === "SINGLE" && <SingleRecorder />}
+      {currentPage === "MULTIPLE" && <MultipleRecorders />}
+    </>
   );
 }
 
